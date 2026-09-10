@@ -9,6 +9,17 @@ use web_time::Instant;
 /// Frames presented longer ago than this stop contributing to the FPS readout.
 const FPS_WINDOW: Duration = Duration::from_secs(1);
 
+/// Frames dropped on the floor before any of them count.
+///
+/// A window's first frames are its most expensive — shaders, the glyph atlas,
+/// the icons, every cache still cold — and they are not what the application
+/// costs to run. Measured, one of them is a hundred milliseconds against a
+/// budget of sixteen, and a HUD that has seen eight frames reports it as a
+/// twelfth of the window's work in amber. The reader has done nothing wrong
+/// and there is nothing to fix, so the default reading has to be a healthy
+/// one.
+const WARMUP_FRAMES: u32 = 8;
+
 /// One drawn frame.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub(crate) struct FrameSample {
@@ -37,6 +48,18 @@ pub(crate) struct FrameSampler {
     /// frame in it onto one instant -- the rate then depends on how often the
     /// HUD looked, not on how often the window presented.
     present_times: VecDeque<Instant>,
+    warmup: u32,
+    /// Whether the backlog has been discarded yet.
+    ///
+    /// The first read drains everything GPUI has recorded since the process
+    /// started. For a HUD switched on later that is history it was not there
+    /// for; for one up from the start it is the cold start. Neither is the
+    /// steady state the rows below the headline are describing.
+    drained_backlog: bool,
+    /// The readout clock's notifies that no draw has answered yet: when the
+    /// first of them fired, and how many there have been. See
+    /// [`Self::expect_own_frame`].
+    own_frame_pending: Option<(Instant, u64)>,
     capacity: usize,
 }
 
@@ -48,8 +71,33 @@ impl FrameSampler {
             window_id,
             samples: VecDeque::with_capacity(capacity),
             present_times: VecDeque::new(),
+            warmup: WARMUP_FRAMES,
+            drained_backlog: false,
+            own_frame_pending: None,
             capacity,
         }
+    }
+
+    /// Announces that the HUD itself is about to dirty the window, so the frame
+    /// that answers is not counted as the application's.
+    ///
+    /// The readout clock has to `notify` to move the digits, and to GPUI that
+    /// is an invalidation like any other: the window is drawn in full and the
+    /// trace records the draw. Left in, the HUD would be measuring a frame it
+    /// caused — twice a second, cold, on a window that had nothing to redraw —
+    /// and reporting it as the application's `FRAME` and `MAX`. So the clock
+    /// says when it fired, and the first draw after `at` is dropped if the
+    /// clock's notifies were the only invalidations it carried. Coalesced with
+    /// anything else, the application asked for the frame too, and it stays.
+    ///
+    /// The notifies are counted rather than flagged: a window the platform is
+    /// not drawing — occluded, minimized — accumulates one per tick, and the
+    /// draw that finally answers carries all of them.
+    pub(crate) fn expect_own_frame(&mut self, at: Instant) {
+        self.own_frame_pending = Some(match self.own_frame_pending {
+            Some((since, notifies)) => (since, notifies + 1),
+            None => (at, 1),
+        });
     }
 
     /// Drains the frames drawn since the previous call. Call once per rendered
@@ -65,6 +113,14 @@ impl FrameSampler {
                 }
                 FrameEvent::Present(_) => {}
             }
+        }
+        if !self.drained_backlog {
+            self.drained_backlog = true;
+            let backlog = draws
+                .iter()
+                .filter(|timing| timing.window_id == self.window_id)
+                .count();
+            self.warmup = self.warmup.saturating_add(backlog as u32);
         }
         self.ingest_draws(draws);
         self.ingest_presents(presents, Instant::now());
@@ -196,6 +252,23 @@ impl FrameSampler {
     fn ingest_draws(&mut self, timings: Vec<FrameTiming>) {
         for timing in timings {
             if timing.window_id != self.window_id {
+                continue;
+            }
+
+            if let Some((since, notifies)) = self.own_frame_pending
+                && timing.draw_start >= since
+            {
+                // The first draw after the clock fired is the one that answered
+                // it; carrying nothing but the clock's notifies it is the HUD's
+                // frame, carrying more it is also the application's.
+                self.own_frame_pending = None;
+                if timing.invalidations <= notifies {
+                    continue;
+                }
+            }
+
+            if self.warmup > 0 {
+                self.warmup -= 1;
                 continue;
             }
 
@@ -419,6 +492,15 @@ pub(crate) fn minimum_resource_interval() -> Duration {
 mod tests {
     use super::*;
 
+    /// A sampler past its warm-up, which is where every statistic below is
+    /// measured from. The warm-up itself is covered by its own test.
+    fn warmed_sampler(window_id: WindowId, capacity: usize) -> FrameSampler {
+        let mut sampler = FrameSampler::new(window_id, capacity);
+        sampler.warmup = 0;
+        sampler.drained_backlog = true;
+        sampler
+    }
+
     // GPUI stamps frames with `scheduler::Instant`, which re-exports
     // `std::time::Instant` off the web, so tests can build one without pulling
     // in the `scheduler` crate.
@@ -441,18 +523,151 @@ mod tests {
     /// A sampler holding one frame per entry in `draws`, in milliseconds.
     fn sampler_of(draws: &[u64]) -> FrameSampler {
         let window_id = WindowId::from(1);
-        let mut sampler = FrameSampler::new(window_id, 256);
+        let mut sampler = warmed_sampler(window_id, 256);
         for millis in draws {
             sampler.ingest_draws(vec![timing(window_id, Duration::from_millis(*millis))]);
         }
         sampler
     }
 
+    /// A frame whose draw began at `start`.
+    fn frame_at(
+        window_id: WindowId,
+        start: Instant,
+        draw: Duration,
+        invalidations: u64,
+    ) -> FrameTiming {
+        FrameTiming {
+            window_id,
+            dirty_at: None,
+            invalidations,
+            draw_start: start,
+            draw_end: start + draw,
+        }
+    }
+
+    #[test]
+    fn the_frame_answering_the_huds_own_clock_is_not_a_sample() {
+        let window_id = WindowId::from(1);
+        let mut sampler = warmed_sampler(window_id, 8);
+        let tick = Instant::now();
+
+        sampler.expect_own_frame(tick);
+        // Only the clock's notify was pending, so this draw is the HUD's.
+        sampler.ingest_draws(vec![frame_at(
+            window_id,
+            tick + Duration::from_millis(1),
+            Duration::from_millis(12),
+            1,
+        )]);
+        assert_eq!(sampler.samples().len(), 0);
+
+        // The frames after it are the application's again.
+        sampler.ingest_draws(vec![frame_at(
+            window_id,
+            tick + Duration::from_millis(200),
+            Duration::from_millis(5),
+            1,
+        )]);
+        assert_eq!(sampler.mean_draw(), Duration::from_millis(5));
+    }
+
+    #[test]
+    fn a_frame_the_application_also_asked_for_stays_a_sample() {
+        let window_id = WindowId::from(1);
+        let mut sampler = warmed_sampler(window_id, 8);
+        let tick = Instant::now();
+
+        sampler.expect_own_frame(tick);
+        // The clock's notify landed in the same frame as an invalidation of
+        // the application's own: the work was wanted, so the cost counts.
+        sampler.ingest_draws(vec![frame_at(
+            window_id,
+            tick + Duration::from_millis(1),
+            Duration::from_millis(12),
+            2,
+        )]);
+        assert_eq!(sampler.mean_draw(), Duration::from_millis(12));
+
+        // And it consumed the announcement: the next lone frame is not the
+        // HUD's.
+        sampler.ingest_draws(vec![frame_at(
+            window_id,
+            tick + Duration::from_millis(300),
+            Duration::from_millis(6),
+            1,
+        )]);
+        assert_eq!(sampler.samples().len(), 2);
+    }
+
+    #[test]
+    fn several_unanswered_ticks_are_still_one_frame_of_the_huds() {
+        let window_id = WindowId::from(1);
+        let mut sampler = warmed_sampler(window_id, 8);
+        let tick = Instant::now();
+
+        // An occluded window is not drawn, so the clock's notifies pile up in
+        // the frame that is finally drawn when it comes back.
+        sampler.expect_own_frame(tick);
+        sampler.expect_own_frame(tick + Duration::from_millis(500));
+        sampler.expect_own_frame(tick + Duration::from_millis(1000));
+        sampler.ingest_draws(vec![frame_at(
+            window_id,
+            tick + Duration::from_millis(1100),
+            Duration::from_millis(30),
+            3,
+        )]);
+        assert_eq!(sampler.samples().len(), 0);
+
+        // One more invalidation than the clock accounts for is the
+        // application's, and the frame is sampled.
+        sampler.expect_own_frame(tick + Duration::from_millis(1500));
+        sampler.expect_own_frame(tick + Duration::from_millis(2000));
+        sampler.ingest_draws(vec![frame_at(
+            window_id,
+            tick + Duration::from_millis(2100),
+            Duration::from_millis(9),
+            3,
+        )]);
+        assert_eq!(sampler.mean_draw(), Duration::from_millis(9));
+    }
+
+    #[test]
+    fn a_frame_drawn_before_the_clock_fired_is_the_applications() {
+        let window_id = WindowId::from(1);
+        let mut sampler = warmed_sampler(window_id, 8);
+        let tick = Instant::now();
+
+        sampler.expect_own_frame(tick);
+        // Drawn before the clock fired, so the clock had nothing to do with it;
+        // the announcement waits for the draw that does answer it.
+        sampler.ingest_draws(vec![frame_at(
+            window_id,
+            tick - Duration::from_millis(5),
+            Duration::from_millis(7),
+            1,
+        )]);
+        assert_eq!(sampler.samples().len(), 1);
+
+        sampler.ingest_draws(vec![frame_at(
+            window_id,
+            tick + Duration::from_millis(1),
+            Duration::from_millis(12),
+            1,
+        )]);
+        assert_eq!(
+            sampler.samples().len(),
+            1,
+            "the clock's own frame was sampled"
+        );
+        assert_eq!(sampler.mean_draw(), Duration::from_millis(7));
+    }
+
     #[test]
     fn ignores_frames_from_other_windows() {
         let ours = WindowId::from(1);
         let theirs = WindowId::from(2);
-        let mut sampler = FrameSampler::new(ours, 8);
+        let mut sampler = warmed_sampler(ours, 8);
 
         sampler.ingest_draws(vec![
             timing(ours, Duration::from_millis(8)),
@@ -467,7 +682,7 @@ mod tests {
     #[test]
     fn drops_oldest_samples_beyond_capacity() {
         let window_id = WindowId::from(1);
-        let mut sampler = FrameSampler::new(window_id, 2);
+        let mut sampler = warmed_sampler(window_id, 2);
 
         for millis in [5, 6, 7] {
             sampler.ingest_draws(vec![timing(window_id, Duration::from_millis(millis))]);
@@ -484,7 +699,7 @@ mod tests {
     /// rate.
     fn measure_fps(count: u64, interval: Duration) -> f32 {
         let window_id = WindowId::from(1);
-        let mut sampler = FrameSampler::new(window_id, 256);
+        let mut sampler = warmed_sampler(window_id, 256);
         let start = Instant::now();
 
         for frame in 0..count {
@@ -495,9 +710,35 @@ mod tests {
     }
 
     #[test]
-    fn fps_is_taken_from_when_frames_were_presented_not_when_they_were_read() {
+    fn the_cold_start_never_reaches_the_readings() {
         let window_id = WindowId::from(1);
         let mut sampler = FrameSampler::new(window_id, 256);
+        let budget = Duration::from_micros(16_667);
+
+        // What a window costs before any cache is warm, followed by what it
+        // costs to run. Ingested straight, without the drain `tick` does, so
+        // only the warm-up itself is under test.
+        sampler.ingest_draws(vec![timing(window_id, Duration::from_millis(100))]);
+        for _ in 1..WARMUP_FRAMES {
+            sampler.ingest_draws(vec![timing(window_id, Duration::from_millis(40))]);
+        }
+        for _ in 0..20 {
+            sampler.ingest_draws(vec![timing(window_id, Duration::from_millis(5))]);
+        }
+
+        assert_eq!(sampler.mean_draw(), Duration::from_millis(5));
+        assert_eq!(sampler.percentile_draw(0.95), Duration::from_millis(5));
+        assert_eq!(
+            sampler.over_budget_ratio(budget),
+            0.,
+            "a window that opened is not a window that is dropping frames"
+        );
+    }
+
+    #[test]
+    fn fps_is_taken_from_when_frames_were_presented_not_when_they_were_read() {
+        let window_id = WindowId::from(1);
+        let mut sampler = warmed_sampler(window_id, 256);
         let start = Instant::now();
         let interval = Duration::from_millis(10);
 
@@ -658,7 +899,7 @@ mod tests {
     #[test]
     fn simultaneous_frames_do_not_divide_by_zero() {
         let window_id = WindowId::from(1);
-        let mut sampler = FrameSampler::new(window_id, 64);
+        let mut sampler = warmed_sampler(window_id, 64);
         let now = Instant::now();
 
         // Three presents on one instant -- what a trace with no clock behind
@@ -711,7 +952,7 @@ mod tests {
 
     #[test]
     fn an_empty_sampler_has_no_percentile_rather_than_a_guess() {
-        let sampler = FrameSampler::new(WindowId::from(1), 8);
+        let sampler = warmed_sampler(WindowId::from(1), 8);
         assert_eq!(sampler.percentile_draw(0.95), Duration::ZERO);
         assert_eq!(sampler.mean_invalidations(), 0.);
     }
@@ -719,7 +960,7 @@ mod tests {
     #[test]
     fn invalidations_average_over_the_retained_frames() {
         let window_id = WindowId::from(1);
-        let mut sampler = FrameSampler::new(window_id, 8);
+        let mut sampler = warmed_sampler(window_id, 8);
 
         // A window asked to redraw five times for every three frames it drew.
         for invalidations in [1, 3, 1] {
@@ -736,7 +977,7 @@ mod tests {
     #[test]
     fn frames_outside_the_rolling_window_stop_counting() {
         let window_id = WindowId::from(1);
-        let mut sampler = FrameSampler::new(window_id, 64);
+        let mut sampler = warmed_sampler(window_id, 64);
         let start = Instant::now();
 
         for frame in 0..10 {

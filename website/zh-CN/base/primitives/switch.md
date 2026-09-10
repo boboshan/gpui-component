@@ -15,18 +15,18 @@ order: 28
 原生示例和页面上方的 WASM 预览共用同一份实现：
 
 ```bash
-cargo run -p gpui-base --example components -- switch
+cargo run -p gpui-base-examples -- switch
 ```
 
 ## 导入
 
 ```rust
-use gpui_base::{Switch, SwitchThumb, SwitchTrack};
+use gpui_kit::base::{Switch, SwitchThumb, SwitchTrack};
 ```
 
 ## 结构与 API
 
-示例组合上述公开类型。GPUI 的标准样式和事件 trait 负责表现，Base 类型负责交互结构。权威实现位于 [`components/switch.rs`](https://github.com/longbridge/gpui-component/blob/main/crates/base/examples/showcase/components/switch.rs)，原生与浏览器预览编译的是同一文件。
+示例组合上述公开类型。GPUI 的标准样式和事件 trait 负责表现，Base 类型负责交互结构。权威实现位于 [`components/switch.rs`](https://github.com/longbridge/gpui-kit/blob/main/crates/base/examples/showcase/components/switch.rs)，原生与浏览器预览编译的是同一文件。
 
 ## 状态与事件
 

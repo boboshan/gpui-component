@@ -14,36 +14,16 @@ dependencies = [
 
 [[package]]
 name = "accesskit_atspi_common"
-version = "0.18.1"
+version = "0.19.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1e8c61bee90b42a772d39d06a740207dc71a4e780004ace1db8d99fb1baaa954"
+checksum = "023da0e5097f46df7092d5280b02efb9bbf8d93298daeced42652463e357d636"
 dependencies = [
  "accesskit",
- "accesskit_consumer 0.36.0",
+ "accesskit_consumer",
  "atspi-common",
  "phf 0.13.1",
  "serde",
  "zvariant",
-]
-
-[[package]]
-name = "accesskit_consumer"
-version = "0.36.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "25e0d7e25d06f4dc21d1774d67146e9e80d6789216cbd4d1e88185b0095dba60"
-dependencies = [
- "accesskit",
- "hashbrown 0.16.1",
-]
-
-[[package]]
-name = "accesskit_consumer"
-version = "0.37.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f950720ce064757a1b629caad3a408e8d2c63bb01f29b8a3ff8daa331053ffeb"
-dependencies = [
- "accesskit",
- "hashbrown 0.16.1",
 ]
 
 [[package]]
@@ -63,7 +43,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ce02dc63b43f0c9296af9ac946312a2dc8814427d7a64d2d600971dac55b6076"
 dependencies = [
  "accesskit",
- "accesskit_consumer 0.38.0",
+ "accesskit_consumer",
  "hashbrown 0.16.1",
  "objc2 0.5.2",
  "objc2-app-kit 0.2.2",
@@ -72,9 +52,9 @@ dependencies = [
 
 [[package]]
 name = "accesskit_unix"
-version = "0.21.1"
+version = "0.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b016ca8db0ea0ea2ceff29a9d6240391492d960716aa471967c00e8cc8cb197c"
+checksum = "03e156ed3802e35eefe894ef2671bc6c889303d8a7e110b5e1b48f504b91362f"
 dependencies = [
  "accesskit",
  "accesskit_atspi_common",
@@ -90,12 +70,12 @@ dependencies = [
 
 [[package]]
 name = "accesskit_windows"
-version = "0.33.1"
+version = "0.34.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "36e93ac7bf50b964f1cbb75f741629a4e950571baa1ef1274457ab5a80d9bcc2"
+checksum = "106c2b961215864d1c2e703ee63269c25c4e80a577ffb2c1017b9c17dcdf83a1"
 dependencies = [
  "accesskit",
- "accesskit_consumer 0.37.0",
+ "accesskit_consumer",
  "hashbrown 0.16.1",
  "static_assertions",
  "windows 0.62.2",
@@ -108,7 +88,7 @@ version = "0.25.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1b5d307320b3181d6d7954e663bd7c774a838b8220fe0593c86d9fb09f498b4b"
 dependencies = [
- "gimli",
+ "gimli 0.32.3",
 ]
 
 [[package]]
@@ -286,12 +266,10 @@ checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
 
 [[package]]
 name = "app_assets"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
  "rust-embed",
 ]
 
@@ -741,7 +719,7 @@ dependencies = [
  "cfg-if",
  "libc",
  "miniz_oxide 0.8.9",
- "object",
+ "object 0.37.3",
  "rustc-demangle",
  "windows-link 0.2.1",
 ]
@@ -808,14 +786,14 @@ dependencies = [
 
 [[package]]
 name = "bindgen"
-version = "0.71.1"
+version = "0.72.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5f58bf3d7db68cfbac37cfc485a8d711e87e064c3d0fe0435b92f7a407f9d6b3"
+checksum = "993776b509cfb49c750f11b8f07a46fa23e0a1386ffc01fb1e7d343efc387895"
 dependencies = [
  "bitflags 2.13.1",
  "cexpr",
  "clang-sys",
- "itertools 0.13.0",
+ "itertools 0.11.0",
  "log",
  "prettyplease",
  "proc-macro2",
@@ -1034,6 +1012,9 @@ name = "bumpalo"
 version = "3.20.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "72f5acc6cb2ba439de613abc23857ec3d78374d8ed5ac84e9d11336e87da8649"
+dependencies = [
+ "allocator-api2",
+]
 
 [[package]]
 name = "bytecheck"
@@ -1168,7 +1149,7 @@ dependencies = [
  "maybe-owned",
  "rustix",
  "rustix-linux-procfs",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
  "winx",
 ]
 
@@ -1254,7 +1235,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d067ad48b8650848b989a59a86c6c36a995d02d2bf778d45c3c5d57bc2718f02"
 dependencies = [
  "smallvec",
- "target-lexicon",
+ "target-lexicon 0.12.16",
 ]
 
 [[package]]
@@ -1352,6 +1333,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c9ea0ac24bc397ab3c98583a3c9ba74fa56b09a4449bbe172b9b1ddb016027a"
 
 [[package]]
+name = "cobs"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0fa961b519f0b462e3a3b4a34b64d119eeaca1d59af726fe450bbba07a9fc0a1"
+dependencies = [
+ "thiserror 2.0.20",
+]
+
+[[package]]
 name = "cocoa"
 version = "0.25.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1424,9 +1414,19 @@ dependencies = [
 [[package]]
 name = "collections"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
- "gpui_util",
+ "gpui_util 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
+ "indexmap",
+ "rustc-hash 2.1.3",
+]
+
+[[package]]
+name = "collections"
+version = "0.1.0"
+source = "git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495#5b055fa789a8b8d38ac951a6e0cde272f66b4495"
+dependencies = [
+ "gpui_util 0.1.0 (git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495)",
  "indexmap",
  "rustc-hash 2.1.3",
 ]
@@ -1763,6 +1763,140 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5ca28b0ae3115b884660db4118d803791fd6756b6e88f39c0f3f7859060d7566"
 dependencies = [
  "libc",
+]
+
+[[package]]
+name = "cranelift-bforest"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e15d04a0ce86cb36ead88ad68cf693ffd6cda47052b9e0ac114bc47fd9cd23c4"
+dependencies = [
+ "cranelift-entity",
+]
+
+[[package]]
+name = "cranelift-bitset"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7c6e3969a7ce267259ce244b7867c5d3bc9e65b0a87e81039588dfdeaede9f34"
+dependencies = [
+ "serde",
+ "serde_derive",
+]
+
+[[package]]
+name = "cranelift-codegen"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2c22032c4cb42558371cf516bb47f26cdad1819d3475c133e93c49f50ebf304e"
+dependencies = [
+ "bumpalo",
+ "cranelift-bforest",
+ "cranelift-bitset",
+ "cranelift-codegen-meta",
+ "cranelift-codegen-shared",
+ "cranelift-control",
+ "cranelift-entity",
+ "cranelift-isle",
+ "gimli 0.31.1",
+ "hashbrown 0.14.5",
+ "log",
+ "regalloc2",
+ "rustc-hash 2.1.3",
+ "serde",
+ "serde_derive",
+ "smallvec",
+ "target-lexicon 0.13.3",
+]
+
+[[package]]
+name = "cranelift-codegen-meta"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c904bc71c61b27fc57827f4a1379f29de64fe95653b620a3db77d59655eee0b8"
+dependencies = [
+ "cranelift-codegen-shared",
+]
+
+[[package]]
+name = "cranelift-codegen-shared"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "40180f5497572f644ce88c255480981ae2ec1d7bb4d8e0c0136a13b87a2f2ceb"
+
+[[package]]
+name = "cranelift-control"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "26d132c6d0bd8a489563472afc171759da0707804a65ece7ceb15a8c6d7dd5ef"
+dependencies = [
+ "arbitrary",
+]
+
+[[package]]
+name = "cranelift-entity"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4b2d0d9618275474fbf679dd018ac6e009acbd6ae6850f6a67be33fb3b00b323"
+dependencies = [
+ "cranelift-bitset",
+ "serde",
+ "serde_derive",
+]
+
+[[package]]
+name = "cranelift-frontend"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4fac41e16729107393174b0c9e3730fb072866100e1e64e80a1a963b2e484d57"
+dependencies = [
+ "cranelift-codegen",
+ "log",
+ "smallvec",
+ "target-lexicon 0.13.3",
+]
+
+[[package]]
+name = "cranelift-isle"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1ca20d576e5070044d0a72a9effc2deacf4d6aa650403189d8ea50126483944d"
+
+[[package]]
+name = "cranelift-module"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4d55612bebcf16ff7306c8a6f5bdb6d45662b8aa1ee058ecce8807ad87db719b"
+dependencies = [
+ "anyhow",
+ "cranelift-codegen",
+ "cranelift-control",
+]
+
+[[package]]
+name = "cranelift-native"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b8dee82f3f1f2c4cba9177f1cc5e350fe98764379bcd29340caa7b01f85076c7"
+dependencies = [
+ "cranelift-codegen",
+ "libc",
+ "target-lexicon 0.13.3",
+]
+
+[[package]]
+name = "cranelift-object"
+version = "0.116.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "aad5a6d3e379493c3f8b35dc61c93d0bf5f27003bbe20614e0200b0ec372ef52"
+dependencies = [
+ "anyhow",
+ "cranelift-codegen",
+ "cranelift-control",
+ "cranelift-module",
+ "log",
+ "object 0.36.7",
+ "target-lexicon 0.13.3",
 ]
 
 [[package]]
@@ -2119,7 +2253,7 @@ dependencies = [
 [[package]]
 name = "derive_refineable"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2134,13 +2268,10 @@ checksum = "abd57806937c9cc163efc8ea3910e00a62e2aeb0b8119f1793a978088f8f6b04"
 
 [[package]]
 name = "dialog_overlay"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-component-assets",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -2190,7 +2321,7 @@ dependencies = [
  "libc",
  "option-ext",
  "redox_users",
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -2229,6 +2360,28 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ab8ecd87370524b461f8557c119c405552c396ed91fc0a8eec68679eab26f94a"
 dependencies = [
  "libloading",
+]
+
+[[package]]
+name = "dlopen2"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "60768c353d76ba6dd1b6332a5dbbdd3bc2dddadc2935f4cc6a9d0f17ca8ecb6a"
+dependencies = [
+ "dlopen2_derive",
+ "libc",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "dlopen2_derive"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1aacdd87ba97c2f83ff479e881e547f776b0a7c42921be22d4391f32b6284050"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 3.0.4",
 ]
 
 [[package]]
@@ -2385,6 +2538,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "embedded-io"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ef1a6892d9eef45c8fa6b9e0086428a2cca8491aca8f787c534a3d6d0bcb3ced"
+
+[[package]]
+name = "embedded-io"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "edd0f118536f44f5ccd48bcb8b111bdc3de888b58c74639dfb034a357d0f206d"
+
+[[package]]
 name = "encoding_rs"
 version = "0.8.35"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2504,7 +2669,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -2547,6 +2712,88 @@ dependencies = [
 ]
 
 [[package]]
+name = "example-brush"
+version = "0.6.1"
+dependencies = [
+ "gpui-component-story",
+ "gpui-kit",
+]
+
+[[package]]
+name = "example-dock"
+version = "0.6.1"
+dependencies = [
+ "anyhow",
+ "gpui-component-story",
+ "gpui-kit",
+ "rand 0.8.8",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "example-editor"
+version = "0.6.1"
+dependencies = [
+ "autocorrect",
+ "chrono",
+ "color-lsp",
+ "gpui-component-story",
+ "gpui-kit",
+ "lsp-types 0.97.0",
+ "serde_json",
+ "smol",
+ "tree-sitter-navi",
+]
+
+[[package]]
+name = "example-html"
+version = "0.6.1"
+dependencies = [
+ "gpui-component-story",
+ "gpui-kit",
+]
+
+[[package]]
+name = "example-large-text"
+version = "0.6.1"
+dependencies = [
+ "gpui-component-story",
+ "gpui-kit",
+]
+
+[[package]]
+name = "example-markdown"
+version = "0.6.1"
+dependencies = [
+ "gpui-component-story",
+ "gpui-kit",
+ "lsp-types 0.97.0",
+ "regex",
+]
+
+[[package]]
+name = "example-stream-markdown"
+version = "0.6.1"
+dependencies = [
+ "gpui-component-story",
+ "gpui-kit",
+ "rand 0.8.8",
+ "smol",
+]
+
+[[package]]
+name = "example-tiles"
+version = "0.6.1"
+dependencies = [
+ "anyhow",
+ "gpui-component-story",
+ "gpui-kit",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
 name = "exr"
 version = "1.74.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2573,6 +2820,12 @@ dependencies = [
  "dummy",
  "rand 0.8.8",
 ]
+
+[[package]]
+name = "fallible-iterator"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2acce4a10f12dc2fb14a218589d4f1f62ef011b2d0cc4b3cb1bba8e94da14649"
 
 [[package]]
 name = "fancy-regex"
@@ -2747,12 +3000,10 @@ checksum = "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1"
 
 [[package]]
 name = "focus_trap"
-version = "0.5.0"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -2846,11 +3097,10 @@ dependencies = [
 
 [[package]]
 name = "fps_monitor"
-version = "0.1.0"
+version = "0.6.1"
 dependencies = [
- "gpui",
  "gpui-fps",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -3227,6 +3477,17 @@ dependencies = [
 
 [[package]]
 name = "gimli"
+version = "0.31.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "07e28edb80900c19c28f1072f2e8aeca7fa06b23cd4169cefe1af5aa3260783f"
+dependencies = [
+ "fallible-iterator",
+ "indexmap",
+ "stable_deref_trait",
+]
+
+[[package]]
+name = "gimli"
 version = "0.32.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e629b9b98ef3dd8afe6ca2bd0f89306cec16d43d907889945bc5d6687f2f13c7"
@@ -3394,7 +3655,7 @@ dependencies = [
  "log",
  "presser",
  "thiserror 2.0.20",
- "windows 0.62.2",
+ "windows 0.57.0",
 ]
 
 [[package]]
@@ -3420,7 +3681,7 @@ dependencies = [
 [[package]]
 name = "gpui"
 version = "0.2.2"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "accesskit",
  "anyhow",
@@ -3430,7 +3691,7 @@ dependencies = [
  "bindgen",
  "bitflags 2.13.1",
  "chrono",
- "collections",
+ "collections 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "core-video",
  "ctor",
  "derive_more 2.1.1",
@@ -3441,10 +3702,10 @@ dependencies = [
  "getrandom 0.3.4",
  "gpui_macros",
  "gpui_shared_string",
- "gpui_util",
+ "gpui_util 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "hdrhistogram",
  "heapless",
- "http_client",
+ "http_client 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "image",
  "inventory",
  "itertools 0.14.0",
@@ -3463,7 +3724,7 @@ dependencies = [
  "refineable",
  "regex",
  "resvg 0.46.0",
- "scheduler",
+ "scheduler 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "schemars",
  "seahash",
  "serde",
@@ -3483,7 +3744,7 @@ dependencies = [
  "uuid",
  "waker-fn",
  "web-time",
- "windows 0.61.3",
+ "windows 0.62.2",
  "zed-font-kit",
  "zed-scap",
  "ztracing",
@@ -3491,7 +3752,7 @@ dependencies = [
 
 [[package]]
 name = "gpui-base"
-version = "0.5.2"
+version = "0.6.1"
 dependencies = [
  "aho-corasick",
  "anyhow",
@@ -3500,7 +3761,6 @@ dependencies = [
  "futures",
  "gpui",
  "gpui_macros",
- "gpui_platform",
  "html5ever 0.27.0",
  "indoc",
  "instant",
@@ -3519,16 +3779,26 @@ dependencies = [
  "serde_json",
  "smallvec",
  "smol",
- "syntect",
+ "sum_tree",
  "tracing",
  "unicode-segmentation",
  "web-time",
- "zed-sum-tree",
+]
+
+[[package]]
+name = "gpui-base-examples"
+version = "0.6.1"
+dependencies = [
+ "gpui",
+ "gpui-base",
+ "gpui_platform",
+ "reqwest_client",
+ "syntect",
 ]
 
 [[package]]
 name = "gpui-base-examples-wasm"
-version = "0.5.2"
+version = "0.6.1"
 dependencies = [
  "console_error_panic_hook",
  "console_log",
@@ -3544,7 +3814,7 @@ dependencies = [
 
 [[package]]
 name = "gpui-component-assets"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
  "gpui",
@@ -3552,13 +3822,14 @@ dependencies = [
  "rust-embed",
  "wasm-bindgen",
  "wasm-bindgen-futures",
- "zed-reqwest 0.12.15-zed (git+https://github.com/zed-industries/reqwest.git?rev=c15662463bda39148ba154100dd44d3fba5873a4)",
+ "zed-reqwest",
 ]
 
 [[package]]
 name = "gpui-component-macros"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
+ "proc-macro-crate 3.5.0",
  "proc-macro2",
  "quote",
  "syn 2.0.119",
@@ -3566,7 +3837,7 @@ dependencies = [
 
 [[package]]
 name = "gpui-component-shell"
-version = "0.1.0"
+version = "0.6.1"
 dependencies = [
  "gpui",
  "gpui-neath",
@@ -3576,28 +3847,21 @@ dependencies = [
 
 [[package]]
 name = "gpui-component-story"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
  "async-channel",
  "autocorrect",
  "chrono",
- "color-lsp",
  "csv",
  "dirs",
  "fake",
  "getrandom 0.2.17",
- "gpui",
- "gpui-base",
- "gpui-component-assets",
  "gpui-fps",
- "gpui-neath",
+ "gpui-kit",
  "gpui-shell",
- "gpui_platform",
- "gpui_web",
  "gtk",
  "itertools 0.14.0",
- "lsp-types 0.97.0",
  "rand 0.8.8",
  "regex",
  "reqwest_client",
@@ -3608,21 +3872,17 @@ dependencies = [
  "syntect",
  "tracing",
  "tracing-subscriber",
- "tree-sitter-navi",
  "unindent",
 ]
 
 [[package]]
 name = "gpui-component-story-web"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "console_error_panic_hook",
  "console_log",
- "gpui",
- "gpui-component-assets",
  "gpui-component-story",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
  "log",
  "tracing-wasm",
  "wasm-bindgen",
@@ -3630,20 +3890,35 @@ dependencies = [
 
 [[package]]
 name = "gpui-fps"
-version = "0.1.0"
+version = "0.6.1"
 dependencies = [
+ "core-graphics 0.24.0",
  "gpui",
  "libc",
  "objc2-core-foundation",
  "objc2-io-kit",
  "sysinfo 0.37.2",
+ "uuid",
+ "wayland-client",
  "web-time",
  "windows 0.58.0",
 ]
 
 [[package]]
+name = "gpui-kit"
+version = "0.6.1"
+dependencies = [
+ "gpui",
+ "gpui-base",
+ "gpui-component-assets",
+ "gpui-neath",
+ "gpui_platform",
+ "gpui_web 0.1.0 (git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495)",
+]
+
+[[package]]
 name = "gpui-neath"
-version = "0.5.2"
+version = "0.6.1"
 dependencies = [
  "anyhow",
  "chrono",
@@ -3668,6 +3943,7 @@ dependencies = [
  "once_cell",
  "paste",
  "raw-window-handle",
+ "regex",
  "resvg 0.45.1",
  "ropey",
  "rust-i18n",
@@ -3678,6 +3954,7 @@ dependencies = [
  "serde_repr",
  "smallvec",
  "smol",
+ "sum_tree",
  "syn 2.0.119",
  "toml 0.8.23",
  "tracing",
@@ -3718,12 +3995,11 @@ dependencies = [
  "tree-sitter-zig",
  "uuid",
  "windows 0.58.0",
- "zed-sum-tree",
 ]
 
 [[package]]
 name = "gpui-shell"
-version = "0.1.0"
+version = "0.6.1"
 dependencies = [
  "anyhow",
  "async-channel",
@@ -3736,12 +4012,9 @@ dependencies = [
  "gpui_platform",
  "instant",
  "libc",
- "llrt_buffer",
- "llrt_crypto",
- "llrt_path",
- "llrt_url",
- "llrt_zlib",
- "rquickjs",
+ "quickjs-jit",
+ "quickjs-jit-runtime",
+ "quickjs-jit-stdlib",
  "schemars",
  "semver",
  "serde",
@@ -3752,12 +4025,12 @@ dependencies = [
  "tungstenite",
  "wait-timeout",
  "windows 0.58.0",
- "zed-reqwest 0.12.15-zed (git+https://github.com/zed-industries/reqwest.git?rev=c15662463bda39148ba154100dd44d3fba5873a4)",
+ "zed-reqwest",
 ]
 
 [[package]]
 name = "gpui-wry"
-version = "0.5.0"
+version = "0.6.1"
 dependencies = [
  "anyhow",
  "gpui",
@@ -3767,13 +4040,13 @@ dependencies = [
 [[package]]
 name = "gpui_apple"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "anyhow",
  "block",
  "cbindgen",
  "cocoa 0.26.0",
- "collections",
+ "collections 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "core-foundation 0.10.1",
  "core-video",
  "derive_more 2.1.1",
@@ -3790,7 +4063,7 @@ dependencies = [
 [[package]]
 name = "gpui_linux"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "accesskit",
  "accesskit_unix",
@@ -3801,13 +4074,13 @@ dependencies = [
  "bytemuck",
  "calloop",
  "calloop-wayland-source",
- "collections",
+ "collections 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "filedescriptor",
  "futures",
  "gpui",
- "gpui_util",
- "gpui_wgpu",
- "http_client",
+ "gpui_util 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
+ "gpui_wgpu 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
+ "http_client 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "libc",
  "log",
  "notify-rust",
@@ -3836,7 +4109,7 @@ dependencies = [
 [[package]]
 name = "gpui_macos"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "accesskit",
  "accesskit_macos",
@@ -3845,7 +4118,7 @@ dependencies = [
  "block",
  "block2 0.6.2",
  "cocoa 0.26.0",
- "collections",
+ "collections 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "core-foundation 0.10.1",
  "core-foundation-sys 0.8.7",
  "core-graphics 0.24.0",
@@ -3856,7 +4129,7 @@ dependencies = [
  "futures",
  "gpui",
  "gpui_apple",
- "gpui_util",
+ "gpui_util 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "image",
  "itertools 0.14.0",
  "libc",
@@ -3882,7 +4155,7 @@ dependencies = [
 [[package]]
 name = "gpui_macros"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "heck 0.5.0",
  "proc-macro2",
@@ -3893,20 +4166,20 @@ dependencies = [
 [[package]]
 name = "gpui_platform"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "console_error_panic_hook",
  "gpui",
  "gpui_linux",
  "gpui_macos",
- "gpui_web",
+ "gpui_web 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "gpui_windows",
 ]
 
 [[package]]
 name = "gpui_shared_string"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "schemars",
  "serde",
@@ -3916,7 +4189,17 @@ dependencies = [
 [[package]]
 name = "gpui_util"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
+dependencies = [
+ "anyhow",
+ "log",
+ "which",
+]
+
+[[package]]
+name = "gpui_util"
+version = "0.1.0"
+source = "git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495#5b055fa789a8b8d38ac951a6e0cde272f66b4495"
 dependencies = [
  "anyhow",
  "log",
@@ -3926,19 +4209,43 @@ dependencies = [
 [[package]]
 name = "gpui_web"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "anyhow",
  "console_error_panic_hook",
  "futures",
  "gpui",
- "gpui_wgpu",
- "http_client",
+ "gpui_wgpu 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
+ "http_client 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "js-sys",
  "log",
  "parking_lot",
  "raw-window-handle",
- "scheduler",
+ "scheduler 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
+ "uuid",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "wasm_thread",
+ "web-sys",
+ "web-time",
+]
+
+[[package]]
+name = "gpui_web"
+version = "0.1.0"
+source = "git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495#5b055fa789a8b8d38ac951a6e0cde272f66b4495"
+dependencies = [
+ "anyhow",
+ "console_error_panic_hook",
+ "futures",
+ "gpui",
+ "gpui_wgpu 0.1.0 (git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495)",
+ "http_client 0.1.0 (git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495)",
+ "js-sys",
+ "log",
+ "parking_lot",
+ "raw-window-handle",
+ "scheduler 0.1.0 (git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495)",
  "uuid",
  "wasm-bindgen",
  "wasm-bindgen-futures",
@@ -3950,15 +4257,15 @@ dependencies = [
 [[package]]
 name = "gpui_wgpu"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "anyhow",
  "bytemuck",
- "collections",
+ "collections 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "cosmic-text",
  "etagere",
  "gpui",
- "gpui_util",
+ "gpui_util 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "itertools 0.14.0",
  "log",
  "parking_lot",
@@ -3974,19 +4281,44 @@ dependencies = [
 ]
 
 [[package]]
+name = "gpui_wgpu"
+version = "0.1.0"
+source = "git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495#5b055fa789a8b8d38ac951a6e0cde272f66b4495"
+dependencies = [
+ "anyhow",
+ "bytemuck",
+ "collections 0.1.0 (git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495)",
+ "cosmic-text",
+ "etagere",
+ "gpui",
+ "gpui_util 0.1.0 (git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495)",
+ "itertools 0.14.0",
+ "log",
+ "parking_lot",
+ "profiling",
+ "raw-window-handle",
+ "smallvec",
+ "swash",
+ "unicode-bidi",
+ "unicode-segmentation",
+ "web-sys",
+ "wgpu",
+]
+
+[[package]]
 name = "gpui_windows"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "accesskit",
  "accesskit_windows",
  "anyhow",
- "collections",
+ "collections 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "dunce",
  "etagere",
  "futures",
  "gpui",
- "gpui_util",
+ "gpui_util 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "image",
  "itertools 0.14.0",
  "log",
@@ -3995,10 +4327,10 @@ dependencies = [
  "raw-window-handle",
  "smallvec",
  "uuid",
- "windows 0.61.3",
- "windows-core 0.61.2",
- "windows-numerics 0.2.0",
- "windows-registry 0.5.3",
+ "windows 0.62.2",
+ "windows-core 0.62.2",
+ "windows-numerics 0.3.1",
+ "windows-registry 0.6.1",
 ]
 
 [[package]]
@@ -4216,12 +4548,10 @@ checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
 
 [[package]]
 name = "hello_world"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -4350,7 +4680,27 @@ dependencies = [
 [[package]]
 name = "http_client"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
+dependencies = [
+ "anyhow",
+ "async-compression",
+ "bytes",
+ "derive_more 2.1.1",
+ "futures",
+ "http",
+ "http-body",
+ "log",
+ "parking_lot",
+ "serde",
+ "serde_json",
+ "serde_urlencoded",
+ "url",
+]
+
+[[package]]
+name = "http_client"
+version = "0.1.0"
+source = "git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495#5b055fa789a8b8d38ac951a6e0cde272f66b4495"
 dependencies = [
  "anyhow",
  "async-compression",
@@ -4370,7 +4720,7 @@ dependencies = [
 [[package]]
 name = "http_client_tls"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "log",
  "rustls",
@@ -4464,7 +4814,7 @@ dependencies = [
  "js-sys",
  "log",
  "wasm-bindgen",
- "windows-core 0.62.2",
+ "windows-core 0.57.0",
 ]
 
 [[package]]
@@ -4716,13 +5066,10 @@ dependencies = [
 
 [[package]]
 name = "input"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-component-assets",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -5212,7 +5559,7 @@ dependencies = [
  "llrt_exceptions",
  "llrt_timers",
  "llrt_utils",
- "rquickjs",
+ "rquickjs 0.12.2",
 ]
 
 [[package]]
@@ -5222,7 +5569,7 @@ source = "git+https://github.com/awslabs/llrt?rev=7b95c82a9b15e7ddfb2778eca4b5a6
 dependencies = [
  "llrt_hooking",
  "llrt_utils",
- "rquickjs",
+ "rquickjs 0.12.2",
  "tracing",
 ]
 
@@ -5235,7 +5582,7 @@ dependencies = [
  "llrt_encoding",
  "llrt_stream_web",
  "llrt_utils",
- "rquickjs",
+ "rquickjs 0.12.2",
  "ryu",
 ]
 
@@ -5264,7 +5611,7 @@ source = "git+https://github.com/awslabs/llrt?rev=7b95c82a9b15e7ddfb2778eca4b5a6
 dependencies = [
  "llrt_build",
  "llrt_utils",
- "rquickjs",
+ "rquickjs 0.12.2",
  "tokio",
  "tracing",
 ]
@@ -5302,7 +5649,7 @@ dependencies = [
  "pbkdf2 0.13.0",
  "pkcs8",
  "rand 0.10.2",
- "rquickjs",
+ "rquickjs 0.12.2",
  "rsa",
  "sha1 0.11.0",
  "spki",
@@ -5327,7 +5674,7 @@ version = "0.9.0-beta"
 source = "git+https://github.com/awslabs/llrt?rev=7b95c82a9b15e7ddfb2778eca4b5a63111e74f51#7b95c82a9b15e7ddfb2778eca4b5a63111e74f51"
 dependencies = [
  "llrt_utils",
- "rquickjs",
+ "rquickjs 0.12.2",
  "tracing",
 ]
 
@@ -5337,7 +5684,7 @@ version = "0.9.0-beta"
 source = "git+https://github.com/awslabs/llrt?rev=7b95c82a9b15e7ddfb2778eca4b5a63111e74f51#7b95c82a9b15e7ddfb2778eca4b5a63111e74f51"
 dependencies = [
  "llrt_utils",
- "rquickjs",
+ "rquickjs 0.12.2",
 ]
 
 [[package]]
@@ -5347,7 +5694,7 @@ source = "git+https://github.com/awslabs/llrt?rev=7b95c82a9b15e7ddfb2778eca4b5a6
 dependencies = [
  "llrt_utils",
  "once_cell",
- "rquickjs",
+ "rquickjs 0.12.2",
 ]
 
 [[package]]
@@ -5358,7 +5705,7 @@ dependencies = [
  "itoa",
  "llrt_build",
  "llrt_utils",
- "rquickjs",
+ "rquickjs 0.12.2",
  "ryu",
  "simd-json",
 ]
@@ -5370,7 +5717,7 @@ source = "git+https://github.com/awslabs/llrt?rev=7b95c82a9b15e7ddfb2778eca4b5a6
 dependencies = [
  "llrt_utils",
  "memchr",
- "rquickjs",
+ "rquickjs 0.12.2",
 ]
 
 [[package]]
@@ -5380,7 +5727,7 @@ source = "git+https://github.com/awslabs/llrt?rev=7b95c82a9b15e7ddfb2778eca4b5a6
 dependencies = [
  "llrt_abort",
  "llrt_utils",
- "rquickjs",
+ "rquickjs 0.12.2",
 ]
 
 [[package]]
@@ -5392,7 +5739,7 @@ dependencies = [
  "llrt_hooking",
  "llrt_utils",
  "once_cell",
- "rquickjs",
+ "rquickjs 0.12.2",
  "tokio",
 ]
 
@@ -5402,7 +5749,7 @@ version = "0.9.0-beta"
 source = "git+https://github.com/awslabs/llrt?rev=7b95c82a9b15e7ddfb2778eca4b5a63111e74f51#7b95c82a9b15e7ddfb2778eca4b5a63111e74f51"
 dependencies = [
  "llrt_utils",
- "rquickjs",
+ "rquickjs 0.12.2",
  "url",
 ]
 
@@ -5415,7 +5762,7 @@ dependencies = [
  "libc",
  "llrt_build",
  "memchr",
- "rquickjs",
+ "rquickjs 0.12.2",
  "simdutf8",
  "tokio",
  "tracing",
@@ -5431,7 +5778,7 @@ dependencies = [
  "llrt_compression",
  "llrt_context",
  "llrt_utils",
- "rquickjs",
+ "rquickjs 0.12.2",
 ]
 
 [[package]]
@@ -5605,12 +5952,9 @@ dependencies = [
 
 [[package]]
 name = "markdown_table"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
- "gpui",
- "gpui-component-assets",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -5718,7 +6062,7 @@ dependencies = [
 [[package]]
 name = "media"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "anyhow",
  "bindgen",
@@ -6021,7 +6365,7 @@ version = "0.50.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7957b9740744892f114936ab4a57b3f487491bbeafaf8083688b16841a4240e5"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -6158,7 +6502,7 @@ version = "0.7.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "680998035259dcfcafe653688bf2aa6d3e2dc05e98be6ab46afb089dc84f1df8"
 dependencies = [
- "proc-macro-crate 3.5.0",
+ "proc-macro-crate 1.3.1",
  "proc-macro2",
  "quote",
  "syn 2.0.119",
@@ -6533,6 +6877,18 @@ dependencies = [
 
 [[package]]
 name = "object"
+version = "0.36.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "62948e14d923ea95ea2c7c86c71013138b66525b86bdc08d2dcc262bdb497b87"
+dependencies = [
+ "crc32fast",
+ "hashbrown 0.15.5",
+ "indexmap",
+ "memchr",
+]
+
+[[package]]
+name = "object"
 version = "0.37.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ff76201f031d8863c38aa7f905eca4f53abbfa15f609db4277d44cd8938f33fe"
@@ -6797,9 +7153,9 @@ checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 [[package]]
 name = "perf"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
- "collections",
+ "collections 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "serde",
  "serde_json",
 ]
@@ -6895,6 +7251,7 @@ checksum = "010378780309880b08997fae13be7834dba947d36393bd372f2b1556deb2a2f6"
 dependencies = [
  "phf_macros 0.14.0",
  "phf_shared 0.14.0",
+ "serde",
 ]
 
 [[package]]
@@ -7239,6 +7596,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "postcard"
+version = "1.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6764c3b5dd454e283a30e6dfe78e9b31096d9e32036b5d1eaac7a6119ccb9a24"
+dependencies = [
+ "cobs",
+ "embedded-io 0.4.0",
+ "embedded-io 0.6.1",
+ "serde",
+]
+
+[[package]]
 name = "potential_utf"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7505,6 +7874,97 @@ dependencies = [
 ]
 
 [[package]]
+name = "quickjs-jit"
+version = "0.12.7"
+source = "git+https://github.com/longbridge/quickjs-jit?rev=9a83a7f9cdc178a0ab5d7b29c3c9227b0dcb8620#9a83a7f9cdc178a0ab5d7b29c3c9227b0dcb8620"
+dependencies = [
+ "either",
+ "indexmap",
+ "quickjs-jit-core",
+ "quickjs-jit-macro",
+]
+
+[[package]]
+name = "quickjs-jit-core"
+version = "0.12.7"
+source = "git+https://github.com/longbridge/quickjs-jit?rev=9a83a7f9cdc178a0ab5d7b29c3c9227b0dcb8620#9a83a7f9cdc178a0ab5d7b29c3c9227b0dcb8620"
+dependencies = [
+ "async-lock",
+ "bytes",
+ "chrono",
+ "dlopen2",
+ "either",
+ "half",
+ "hashbrown 0.17.1",
+ "indexmap",
+ "phf 0.14.0",
+ "quickjs-jit-sys",
+ "relative-path",
+]
+
+[[package]]
+name = "quickjs-jit-macro"
+version = "0.12.7"
+source = "git+https://github.com/longbridge/quickjs-jit?rev=9a83a7f9cdc178a0ab5d7b29c3c9227b0dcb8620#9a83a7f9cdc178a0ab5d7b29c3c9227b0dcb8620"
+dependencies = [
+ "convert_case 0.11.0",
+ "fnv",
+ "ident_case",
+ "indexmap",
+ "phf_generator 0.14.0",
+ "phf_shared 0.14.0",
+ "proc-macro-crate 3.5.0",
+ "proc-macro2",
+ "quickjs-jit-core",
+ "quote",
+ "syn 2.0.119",
+]
+
+[[package]]
+name = "quickjs-jit-runtime"
+version = "0.12.7"
+source = "git+https://github.com/longbridge/quickjs-jit?rev=9a83a7f9cdc178a0ab5d7b29c3c9227b0dcb8620#9a83a7f9cdc178a0ab5d7b29c3c9227b0dcb8620"
+dependencies = [
+ "cranelift-codegen",
+ "cranelift-frontend",
+ "cranelift-module",
+ "cranelift-native",
+ "cranelift-object",
+ "gimli 0.31.1",
+ "libc",
+ "postcard",
+ "quickjs-jit-core",
+ "quickjs-jit-sys",
+ "serde",
+ "serde_json",
+ "serde_yaml",
+ "target-lexicon 0.13.3",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "quickjs-jit-stdlib"
+version = "0.12.7"
+source = "git+https://github.com/longbridge/quickjs-jit?rev=605da483611a3548edb8c33fdff602e3f5f42076#605da483611a3548edb8c33fdff602e3f5f42076"
+dependencies = [
+ "llrt_buffer",
+ "llrt_crypto",
+ "llrt_path",
+ "llrt_url",
+ "llrt_zlib",
+ "rquickjs 0.12.2",
+]
+
+[[package]]
+name = "quickjs-jit-sys"
+version = "0.12.7"
+source = "git+https://github.com/longbridge/quickjs-jit?rev=9a83a7f9cdc178a0ab5d7b29c3c9227b0dcb8620#9a83a7f9cdc178a0ab5d7b29c3c9227b0dcb8620"
+dependencies = [
+ "bindgen",
+ "cc",
+]
+
+[[package]]
 name = "quinn"
 version = "0.11.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7557,7 +8017,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -7912,9 +8372,24 @@ dependencies = [
 [[package]]
 name = "refineable"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "derive_refineable",
+]
+
+[[package]]
+name = "regalloc2"
+version = "0.11.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dc06e6b318142614e4a48bc725abbf08ff166694835c43c9dae5a9009704639a"
+dependencies = [
+ "allocator-api2",
+ "bumpalo",
+ "hashbrown 0.15.5",
+ "log",
+ "rustc-hash 2.1.3",
+ "serde",
+ "smallvec",
 ]
 
 [[package]]
@@ -7973,18 +8448,18 @@ checksum = "19b30a45b0cd0bcca8037f3d0dc3421eaf95327a17cad11964fb8179b4fc4832"
 [[package]]
 name = "reqwest_client"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "anyhow",
  "bytes",
  "futures",
- "gpui_util",
- "http_client",
+ "gpui_util 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
+ "http_client 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "http_client_tls",
  "log",
  "regex",
  "tokio",
- "zed-reqwest 0.12.15-zed (git+https://github.com/zed-industries/reqwest.git?rev=33bc764aa15ff7b200bf7c93bd96e24878d53e14)",
+ "zed-reqwest",
 ]
 
 [[package]]
@@ -8085,11 +8560,9 @@ dependencies = [
 
 [[package]]
 name = "root_borderless"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
- "gpui",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -8124,6 +8597,13 @@ checksum = "4e04e4eedfb060b503b5f0a2644abb890b0b3620d3fb674f9455f230014964e4"
 dependencies = [
  "rquickjs-core",
  "rquickjs-macro",
+]
+
+[[package]]
+name = "rquickjs"
+version = "0.12.7"
+dependencies = [
+ "quickjs-jit",
 ]
 
 [[package]]
@@ -8322,7 +8802,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -8400,7 +8880,7 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -8484,7 +8964,23 @@ dependencies = [
 [[package]]
 name = "scheduler"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
+dependencies = [
+ "async-task",
+ "backtrace",
+ "chrono",
+ "flume 0.12.0",
+ "futures",
+ "parking_lot",
+ "rand 0.9.5",
+ "wasm_thread",
+ "web-time",
+]
+
+[[package]]
+name = "scheduler"
+version = "0.1.0"
+source = "git+https://github.com/zed-industries/zed?rev=5b055fa789a8b8d38ac951a6e0cde272f66b4495#5b055fa789a8b8d38ac951a6e0cde272f66b4495"
 dependencies = [
  "async-task",
  "backtrace",
@@ -8884,13 +9380,10 @@ checksum = "f8fadd59c855ef2080decdef8ff161eb6661b86933c9d82e5ba29dc602a55aba"
 
 [[package]]
 name = "sidebar"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-component-assets",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -9017,6 +9510,9 @@ name = "smallvec"
 version = "1.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ed6a63f02c8539c91a8685a86f4099661ba3da017932f6ebbea6de3f0fa7c90"
+dependencies = [
+ "serde",
+]
 
 [[package]]
 name = "smol"
@@ -9052,7 +9548,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c3d1e2c7f27f8d4cb10542a02c49005dbd6e93095799d6f3be745fae9f8fedd4"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -9206,7 +9702,7 @@ checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
 [[package]]
 name = "sum_tree"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "heapless",
  "log",
@@ -9441,17 +9937,6 @@ dependencies = [
 
 [[package]]
 name = "system-configuration"
-version = "0.6.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3c879d448e9d986b661742763247d3693ed13609438cf3d006f51f5368a5ba6b"
-dependencies = [
- "bitflags 2.13.1",
- "core-foundation 0.9.4",
- "system-configuration-sys",
-]
-
-[[package]]
-name = "system-configuration"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "501336eb7ba9e417300a6a0fa985721065467aa83a6dcf0422a8e43e4c0328fa"
@@ -9486,15 +9971,12 @@ dependencies = [
 
 [[package]]
 name = "system_monitor"
-version = "0.5.0"
+version = "0.6.1"
 dependencies = [
  "anyhow",
  "battery",
  "core-foundation 0.10.1",
- "gpui",
- "gpui-component-assets",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
  "metal",
  "smol",
  "sysinfo 0.37.2",
@@ -9503,11 +9985,9 @@ dependencies = [
 
 [[package]]
 name = "table_in_scrollable"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
- "gpui",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -9558,6 +10038,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "61c41af27dd6d1e27b1b16b489db798443478cef1f06a660c96db617ba5de3b1"
 
 [[package]]
+name = "target-lexicon"
+version = "0.13.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "df7f62577c25e07834649fc3b39fafdc597c0a3527dc1c60129201ccfcbaa50c"
+
+[[package]]
 name = "tauri-winrt-notification"
 version = "0.7.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -9578,7 +10064,7 @@ dependencies = [
  "getrandom 0.4.3",
  "once_cell",
  "rustix",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -9603,25 +10089,19 @@ dependencies = [
 
 [[package]]
 name = "text_max_lines"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-component-assets",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
  "reqwest_client",
 ]
 
 [[package]]
 name = "text_selection"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-component-assets",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -9955,12 +10435,10 @@ checksum = "7d56353a2a665ad0f41a421187180aab746c8c325620617ad883a99a1cbe66d2"
 
 [[package]]
 name = "tooltip_top_edge"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -10554,7 +11032,7 @@ checksum = "f2f6fb2847f6742cd76af783a2a2c49e9375d0a111c7bef6f71cd9e738c72d6e"
 dependencies = [
  "memoffset",
  "tempfile",
- "windows-sys 0.61.2",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
@@ -10761,7 +11239,7 @@ checksum = "b6c140620e7ffbb22c2dee59cafe6084a59b5ffc27a8859a5f0d494b5d52b6be"
 [[package]]
 name = "util_macros"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "perf",
  "quote",
@@ -11027,6 +11505,7 @@ checksum = "38a91b4eaddff87b1cd1074985e3713da4af2c49742d1b356b2c01670a67a078"
 dependencies = [
  "cc",
  "downcast-rs",
+ "log",
  "rustix",
  "scoped-tls",
  "smallvec",
@@ -11210,13 +11689,11 @@ dependencies = [
 
 [[package]]
 name = "webview"
-version = "0.5.0"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-neath",
+ "gpui-kit",
  "gpui-wry",
- "gpui_platform",
  "gtk",
  "lb-wry",
  "raw-window-handle",
@@ -11473,7 +11950,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -11484,13 +11961,10 @@ checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 
 [[package]]
 name = "window_title"
-version = "0.5.1"
+version = "0.6.1"
 dependencies = [
  "anyhow",
- "gpui",
- "gpui-component-assets",
- "gpui-neath",
- "gpui_platform",
+ "gpui-kit",
 ]
 
 [[package]]
@@ -11753,13 +12227,13 @@ dependencies = [
 
 [[package]]
 name = "windows-registry"
-version = "0.5.3"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5b8a9ed28765efc97bbc954883f4e6796c33a06546ebafacbabee9696967499e"
+checksum = "02752bf7fbdcce7f2a27a742f798510f3e5ad88dbe84871e5168e2120c3d5720"
 dependencies = [
- "windows-link 0.1.3",
- "windows-result 0.3.4",
- "windows-strings 0.4.2",
+ "windows-link 0.2.1",
+ "windows-result 0.4.1",
+ "windows-strings 0.5.1",
 ]
 
 [[package]]
@@ -12167,12 +12641,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "workspace-hack"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "beffa227304dbaea3ad6a06ac674f9bc83a3dec3b7f63eeb442de37e7cb6bb01"
-
-[[package]]
 name = "writeable"
 version = "0.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -12508,55 +12976,6 @@ dependencies = [
  "base64",
  "bytes",
  "encoding_rs",
- "futures-core",
- "futures-util",
- "h2",
- "http",
- "http-body",
- "http-body-util",
- "hyper",
- "hyper-rustls",
- "hyper-util",
- "ipnet",
- "js-sys",
- "log",
- "mime",
- "mime_guess",
- "once_cell",
- "percent-encoding",
- "pin-project-lite",
- "quinn",
- "rustls",
- "rustls-native-certs",
- "rustls-pemfile",
- "rustls-pki-types",
- "serde",
- "serde_json",
- "serde_urlencoded",
- "sync_wrapper",
- "system-configuration 0.8.0",
- "tokio",
- "tokio-rustls",
- "tokio-socks",
- "tokio-util",
- "tower 0.5.3",
- "tower-service",
- "url",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "wasm-streams",
- "web-sys",
- "windows-registry 0.4.0",
-]
-
-[[package]]
-name = "zed-reqwest"
-version = "0.12.15-zed"
-source = "git+https://github.com/zed-industries/reqwest.git?rev=c15662463bda39148ba154100dd44d3fba5873a4#c15662463bda39148ba154100dd44d3fba5873a4"
-dependencies = [
- "base64",
- "bytes",
- "encoding_rs",
  "futures-channel",
  "futures-core",
  "futures-util",
@@ -12584,7 +13003,7 @@ dependencies = [
  "serde_json",
  "serde_urlencoded",
  "sync_wrapper",
- "system-configuration 0.6.1",
+ "system-configuration",
  "tokio",
  "tokio-rustls",
  "tokio-socks",
@@ -12618,18 +13037,6 @@ dependencies = [
  "windows-capture",
  "x11",
  "xcb",
-]
-
-[[package]]
-name = "zed-sum-tree"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d490156d0d7311855564d6e1d6dccab992405a0c0e15e1c8ef18920c02177e35"
-dependencies = [
- "arrayvec",
- "log",
- "rayon",
- "workspace-hack",
 ]
 
 [[package]]
@@ -12754,11 +13161,11 @@ checksum = "34b31d188d9d685a4f9c7b46d6e36631b07058d2cfe190267adce54dc230bf12"
 [[package]]
 name = "zlog"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "anyhow",
  "chrono",
- "collections",
+ "collections 0.1.0 (git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f)",
  "log",
 ]
 
@@ -12799,7 +13206,7 @@ dependencies = [
 [[package]]
 name = "ztracing"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 dependencies = [
  "tracing",
  "tracing-subscriber",
@@ -12810,7 +13217,7 @@ dependencies = [
 [[package]]
 name = "ztracing_macro"
 version = "0.1.0"
-source = "git+https://github.com/zed-industries/zed?rev=f66ed399cdde86092af8af3dc7b418abf45f37f8#f66ed399cdde86092af8af3dc7b418abf45f37f8"
+source = "git+https://github.com/neath-audio/zed?rev=44df7175168999f0c06544c3d0b3b55c32501e8f#44df7175168999f0c06544c3d0b3b55c32501e8f"
 
 [[package]]
 name = "zune-core"

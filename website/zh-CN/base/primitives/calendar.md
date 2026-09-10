@@ -15,18 +15,18 @@ order: 5
 原生示例和页面上方的 WASM 预览共用同一份实现：
 
 ```bash
-cargo run -p gpui-base --example components -- calendar
+cargo run -p gpui-base-examples -- calendar
 ```
 
 ## 导入
 
 ```rust
-use gpui_base::{Calendar, CalendarState};
+use gpui_kit::base::{Calendar, CalendarState};
 ```
 
 ## 结构与 API
 
-示例组合上述公开类型。GPUI 的标准样式和事件 trait 负责表现，Base 类型负责交互结构。权威实现位于 [`components/calendar.rs`](https://github.com/longbridge/gpui-component/blob/main/crates/base/examples/showcase/components/calendar.rs)，原生与浏览器预览编译的是同一文件。
+示例组合上述公开类型。GPUI 的标准样式和事件 trait 负责表现，Base 类型负责交互结构。权威实现位于 [`components/calendar.rs`](https://github.com/longbridge/gpui-kit/blob/main/crates/base/examples/showcase/components/calendar.rs)，原生与浏览器预览编译的是同一文件。
 
 ## 状态与事件
 

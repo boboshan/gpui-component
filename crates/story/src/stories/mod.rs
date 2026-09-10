@@ -1,5 +1,5 @@
-use gpui::{AnyView, App, AppContext as _, Entity, Hsla, Pixels, Render, Window, px};
-use gpui_component::dock::PanelControl;
+use gpui_kit::component::dock::PanelControl;
+use gpui_kit::{AnyView, App, AppContext as _, Entity, Hsla, Pixels, Render, Window, px};
 
 mod accordion_story;
 mod alert_dialog_story;
@@ -11,6 +11,7 @@ mod breadcrumb_story;
 mod bubble_story;
 mod button_story;
 mod calendar_story;
+mod carousel_story;
 mod chart_story;
 mod checkbox_story;
 mod clipboard_story;
@@ -84,6 +85,7 @@ pub use breadcrumb_story::BreadcrumbStory;
 pub use bubble_story::BubbleStory;
 pub use button_story::ButtonStory;
 pub use calendar_story::CalendarStory;
+pub use carousel_story::CarouselStory;
 pub use chart_story::ChartStory;
 pub use checkbox_story::CheckboxStory;
 pub use clipboard_story::ClipboardStory;
